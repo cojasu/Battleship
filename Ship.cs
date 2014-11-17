@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BattleshipTest.BoardData;
 
 namespace BattleshipTest
 {
@@ -11,9 +12,7 @@ namespace BattleshipTest
         int length;
         string type;
         bool isSunk;
-        int xCoord;
-        int yCoord;
-
+        List<Coordinate> coords = new List<Coordinate>();
         Ship(int length, string type)
         {
             isSunk = false;
@@ -21,10 +20,10 @@ namespace BattleshipTest
             this.type = type;
         }
 
-        void setCoords(int x, int y)
+        void addCoordinate(int x, int y)
         {
-            xCoord = x;
-            yCoord = y;
+            Coordinate tempCoord = new Coordinate(x, y);
+            coords.Add(tempCoord);
         }
     }
 }

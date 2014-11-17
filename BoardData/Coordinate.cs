@@ -10,13 +10,11 @@ namespace BattleshipTest.BoardData
     {
         public int x;
         public int y;
-        public string item;
 
-        public Coordinate(int x, int y, string item)
+        public Coordinate(int x, int y)
         {
             this.x = x;
             this.y = y;
-            this.item = item;
         }
 
         public Coordinate(int x, int y){

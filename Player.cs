@@ -10,6 +10,11 @@ namespace BattleshipTest
     public class Player
     {
         public Board board;
+        Ship carrier();
+        Ship battleship();
+        Ship submarine();
+        Ship destroyer();
+        Ship boat();
 
         public Player()
         {
