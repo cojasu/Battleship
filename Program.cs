@@ -15,7 +15,7 @@ namespace BattleshipTest
             Player player = new Player();
             AI computer = new AI();
 
-            player.board.upperScreen.printSimple();
+            player.board.upperScreen.print();
             Console.WriteLine("Press enter to close...");
             Console.ReadLine();
         }

@@ -8,7 +8,7 @@ namespace BattleshipTest.BoardData
 {
     public class LowerScreen
     {
-        int[,] screen = new int[10, 10];
+        Coordinate[,] screen = new Coordinate[10, 10];
 
         public LowerScreen()
         {
@@ -16,59 +16,27 @@ namespace BattleshipTest.BoardData
             {
                 for (int j = 0; j < screen.GetLength(1); j++)
                 {
-                    screen[i, j] = 0;
+                    screen[i, j] = new Coordinate(i, j);
                 }
             }
 
         }
 
-        public void printExtended()
+
+        public void print()
         {
             for (int i = 0; i < screen.GetLength(0); i++)
             {
                 for (int j = 0; j < screen.GetLength(1); j++)
                 {
-                    Console.Write("upperPlayScreen: [" + i + "][" + j + "]: " + numToString(screen[i, j]) + " ");
+                    Console.Write("[" + screen[i, j].x + "][" + screen[i, j].y + "] ");
                 }
                 Console.WriteLine("");
             }
         }
-
-        public void printSimple()
-        {
-            for (int i = 0; i < screen.GetLength(0); i++)
-            {
-                for (int j = 0; j < screen.GetLength(1); j++)
-                {
-                    Console.Write(numToString(screen[i, j]) + " " );
-                }
-                Console.WriteLine("");
-            }
-        }
-
-        public string numToString(int num)
-        {
-            if (num == 0)
-            {
-                //no data
-                return "ND";
-            }
-            if (num == 1)
-            {
-                //hit
-                return "H";
-            }
-            if (num == 2)
-            {
-                //miss
-                return "M";
-            }
-            else
-            {
-                //error
-                return "E";
-            }
-        }
-    }
     }
 }
+
+
+
+

@@ -17,7 +17,6 @@ namespace BattleshipTest.BoardData
         public Board()
         {
             upperScreen = new UpperScreen();
-            upperScreen.printSimple();
             lowerScreen = new LowerScreen();
         }
     }
