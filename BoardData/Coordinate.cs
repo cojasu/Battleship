@@ -16,10 +16,5 @@ namespace BattleshipTest.BoardData
             this.x = x;
             this.y = y;
         }
-
-        public Coordinate(int x, int y){
-            this.x = x;
-            this.y = y;
-        }
     }
 }

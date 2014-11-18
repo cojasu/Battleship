@@ -11,19 +11,19 @@ namespace BattleshipTest
     {
         int length;
         string type;
-        bool isSunk;
-        List<Coordinate> coords = new List<Coordinate>();
+
+        Dictionary<Coordinate, bool> isHitDictionary;
+
         Ship(int length, string type)
         {
-            isSunk = false;
             this.length = length;
             this.type = type;
         }
 
-        void addCoordinate(int x, int y)
+        void addCoordinateToDictionary(int x, int y)
         {
-            Coordinate tempCoord = new Coordinate(x, y);
-            coords.Add(tempCoord);
+            Coordinate temp = new Coordinate(x, y);
+            isHitDictionary.Add(temp, false);
         }
     }
 }
