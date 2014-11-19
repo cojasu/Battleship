@@ -18,6 +18,7 @@ namespace BattleshipTest
             Console.WriteLine("Finished creating AI");
 
             player.board.lowerScreen.print();
+            player.board.lowerScreen.printShipData();
             Console.WriteLine("Press enter to close...");
             Console.ReadLine();
         }

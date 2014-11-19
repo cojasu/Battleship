@@ -104,7 +104,7 @@ namespace BattleshipTest.BoardData
                                 for (int x = 0; x < ship.length; x++)
                                 {
                                     screen[temp.x + x, temp.y].content = ship.type;
-                                    Coordinate dictTempCoord = new Coordinate(temp.x, temp.y + x);
+                                    Coordinate dictTempCoord = new Coordinate(temp.x + x, temp.y);
                                     ship.isHitDictionary.Add(dictTempCoord, false);
                                 }
                                 spotFound = true;
@@ -122,10 +122,22 @@ namespace BattleshipTest.BoardData
             {
                 for (int j = 0; j < screen.GetLength(1); j++)
                 {
-                    Console.Write(screen[i,j].content);
+                    Console.Write(screen[j,i].content);
                 }
                 Console.WriteLine("");
             }
+        }
+        
+        public void printShipData()
+        {
+            Ships.ForEach(delegate(Ship ship)
+            {
+                Console.WriteLine(ship.type);
+                foreach (KeyValuePair<Coordinate, bool> coord in ship.isHitDictionary)
+                {
+                    Console.WriteLine("Coordinate " + coord.Key.x + ":" + coord.Key.y + " Is Hit? " + coord.Value );
+                }
+            });
         }
     }
 }
