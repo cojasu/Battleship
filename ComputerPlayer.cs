@@ -8,7 +8,7 @@ namespace BattleshipTest
 {
     class ComputerPlayer
     {
-        AI ai;
+        public AI ai;
         ComputerPlayer()
         {
             ai = new AI();
@@ -17,6 +17,11 @@ namespace BattleshipTest
         public ComputerPlayer(string dif)
         {
             ai = new AI(dif);
+        }
+        //Logic for taking computers turn. returns true if computer has won.
+        public bool turn()
+        {
+            return false;
         }
     }
 }
