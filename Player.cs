@@ -18,8 +18,22 @@ namespace BattleshipTest
         //Logic for players turn, return true if player has won.
         public bool turn()
         {
+            printScreens();
+            Coordinate tempCoord = getShot();
+
 
             return false;
+        }
+
+        public Coordinate getShot()
+        {
+            Coordinate tempCoord = new Coordinate();
+            return tempCoord;
+        }
+        public void printScreens(){
+            board.upperScreen.printHitOrMiss();
+            Console.WriteLine("");
+            board.lowerScreen.print();
         }
         public Coordinate chooseMove()
         {

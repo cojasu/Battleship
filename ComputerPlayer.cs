@@ -24,6 +24,7 @@ namespace BattleshipTest
         }
 
         public void takeShot(Coordinate coord){
+
         }
 
         public bool isLegal(Coordinate target)
