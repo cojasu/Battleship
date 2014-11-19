@@ -75,7 +75,7 @@ namespace BattleshipTest.BoardData
                                 for (int x = 0; x < ship.length; x++)
                                 {
                                     screen[temp.x, temp.y + x].content = ship.type;
-                                    Coordinate dictTempCoord = new Coordinate(temp.x, temp.y + x);
+                                    Coordinate dictTempCoord = new Coordinate(temp.x, temp.y + x, ship.type);
                                     ship.isHitDictionary.Add(dictTempCoord, false);
                                 }
                                 spotFound = true;
@@ -104,7 +104,7 @@ namespace BattleshipTest.BoardData
                                 for (int x = 0; x < ship.length; x++)
                                 {
                                     screen[temp.x + x, temp.y].content = ship.type;
-                                    Coordinate dictTempCoord = new Coordinate(temp.x + x, temp.y);
+                                    Coordinate dictTempCoord = new Coordinate(temp.x + x, temp.y, ship.type);
                                     ship.isHitDictionary.Add(dictTempCoord, false);
                                 }
                                 spotFound = true;
@@ -128,14 +128,17 @@ namespace BattleshipTest.BoardData
             }
         }
         
-        public void printShipData()
+        public void printShipData(bool debug)
         {
             Ships.ForEach(delegate(Ship ship)
             {
                 Console.WriteLine(ship.type);
                 foreach (KeyValuePair<Coordinate, bool> coord in ship.isHitDictionary)
                 {
-                    Console.WriteLine("Coordinate " + coord.Key.x + ":" + coord.Key.y + " Is Hit? " + coord.Value );
+                    if (debug == true)
+                    {
+                        Console.WriteLine("Coordinate " + coord.Key.x + ":" + coord.Key.y + " Is Hit? " + coord.Value + " Content: " + coord.Key.content);                      
+                    }
                 }
             });
         }

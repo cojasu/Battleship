@@ -21,15 +21,16 @@ namespace BattleshipTest
             Coordinate target;
             printScreens(oppBoard, debugMode);
             target = chooseMove();
-            TakeShot(oppBoard, target);
+            TakeShot(oppBoard, target, debugMode);
             return false;
         }
 
-        public void TakeShot(Board oppB, Coordinate target)
+        public void TakeShot(Board oppB, Coordinate target, bool debug)
         {
             //Update boards
             if (oppB.lowerScreen.screen[target.x, target.y].content != "#")
             {
+                target.content = oppB.lowerScreen.screen[target.x, target.y].content;
                 oppB.lowerScreen.screen[target.x, target.y].content = "H";
                 board.upperScreen.hitOrMissScreen[target.x, target.y] = "H";
             }
@@ -43,8 +44,17 @@ namespace BattleshipTest
 
             oppB.lowerScreen.Ships.ForEach(delegate(Ship ship)
             {
+                if (debug == true)
+                {
+                    Console.WriteLine("DEBUG INFO: On Ship " + ship.type + " : Target " + target.x + "" + target.y + "" + target.content);
+                    
+                }
                 if (ship.isHitDictionary.ContainsKey(target))
                 {
+                    if (debug == true)
+                    {
+                        Console.WriteLine("DEBUG INFO: ship.IsHitDictionary.ContainsKey(target) is true");
+                    }
                     ship.isHitDictionary[target] = true;
                 }
             });
@@ -63,7 +73,7 @@ namespace BattleshipTest
                 oppB.lowerScreen.print();
                 Console.WriteLine("");
                 Console.WriteLine("Opponent Ship Data");
-                oppB.lowerScreen.printShipData();
+                oppB.lowerScreen.printShipData(dm);
                 Console.WriteLine("");
             }
         }

@@ -19,6 +19,13 @@ namespace BattleshipTest.BoardData
             content = "#";
         }
 
+        public Coordinate(int x, int y, string con)
+        {
+            this.x = x;
+            this.y = y;
+            content = con;
+        }
+
         public Coordinate()
         {
             this.x = generateRandom();
