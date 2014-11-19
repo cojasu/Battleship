@@ -6,17 +6,17 @@ using System.Threading.Tasks;
 
 namespace BattleshipTest
 {
-    class Menu
+    public class Menu
     {
         string difficulty;
         bool humanGoesFirst;
-        Menu()
+        public Menu()
         {
             difficulty = "easy";
             humanGoesFirst = true;
         }
 
-        Menu(string diff, bool hgf)
+        public Menu(string diff, bool hgf)
         {
             difficulty = diff;
             humanGoesFirst = hgf;
@@ -24,38 +24,47 @@ namespace BattleshipTest
 
         public void Display()
         {
+            bool validChoice = false;
             string ans = "";
             Console.WriteLine("Would you like to go first? y/n");
             do
             {
                 ans = Console.ReadLine();
-            } while (ans != "y" || ans != "n");
-            if (ans == "y")
-            {
-                humanGoesFirst = true;
-            }
-            else
-            {
-                humanGoesFirst = false;
-            }
+                if (ans == "y")
+                {
+                    validChoice = true;
+                    humanGoesFirst = true;
+                }
+                if (ans == "n")
+                {
+                    validChoice = true;
+                    humanGoesFirst = false;
+                }
+            } while (!validChoice);
 
             Console.WriteLine("Choose your difficulty level. 1 = Easy, 2 = Medium, 3 = Hard");
+            validChoice = false;
             do
             {
                 ans = Console.ReadLine();
-            } while (ans != "1" || ans != "2" || ans != "3");
-            if (ans == "1")
-            {
-                difficulty = "easy";
-            }
-            else if (ans == "2")
-            {
-                difficulty = "medium";
-            }
-            else
-            {
-                difficulty = "hard";
-            }
+                if (ans == "1")
+                {
+                    validChoice = true;
+                    difficulty = "easy";
+                }
+                else if (ans == "2")
+                {
+                    validChoice = true;
+                    difficulty = "medium";
+                }
+                else if (ans == "3")
+                {
+                    validChoice = true;
+                    difficulty = "hard";
+                }
+
+            } while (!validChoice);
+
         }
     }
 }

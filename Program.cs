@@ -11,6 +11,8 @@ namespace BattleshipTest
     {
         static void Main(string[] args)
         {
+            Menu m = new Menu();
+            m.Display();
 
             Player player = new Player();
             Console.WriteLine("Finished creating player");
