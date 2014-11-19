@@ -16,8 +16,8 @@ namespace BattleshipTest
 
             Player player = new Player();
             Console.WriteLine("Finished creating player");
-            AI computer = new AI();
-            Console.WriteLine("Finished creating AI");
+            ComputerPlayer computer = new ComputerPlayer(m.difficulty);
+            Console.WriteLine("Finished creating computer");
 
             player.board.lowerScreen.print();
             player.board.lowerScreen.printShipData();

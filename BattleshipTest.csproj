@@ -46,6 +46,7 @@
     <Compile Include="BoardData\Coordinate.cs" />
     <Compile Include="BoardData\LowerScreen.cs" />
     <Compile Include="BoardData\UpperScreen.cs" />
+    <Compile Include="ComputerPlayer.cs" />
     <Compile Include="Menu.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Program.cs" />

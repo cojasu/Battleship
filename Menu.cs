@@ -8,8 +8,8 @@ namespace BattleshipTest
 {
     public class Menu
     {
-        string difficulty;
-        bool humanGoesFirst;
+        public string difficulty;
+        public bool humanGoesFirst;
         public Menu()
         {
             difficulty = "easy";
