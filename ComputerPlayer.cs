@@ -29,7 +29,7 @@ namespace BattleshipTest
 
         public bool isLegal(Coordinate target)
         {
-            if (board.upperScreen.screen[target.x, target.y].content == "e")
+            if (board.upperScreen.screen[target.x, target.y].content == "#")
             {
                 return true;
             }

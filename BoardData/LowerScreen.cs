@@ -49,7 +49,7 @@ namespace BattleshipTest.BoardData
                 {
                     bool addingFlag = true;
                     Coordinate temp = new Coordinate();
-                    if (screen[temp.x, temp.y].content == "e")
+                    if (screen[temp.x, temp.y].content == "#")
                     {
                         //generate direction
                         //horizontal
@@ -60,7 +60,7 @@ namespace BattleshipTest.BoardData
                             {
                                 if (temp.x < 10 && (temp.y + x) < 10)
                                 {
-                                    if (!(screen[temp.x, temp.y + x].content == "e"))
+                                    if (!(screen[temp.x, temp.y + x].content == "#"))
                                     {
                                         addingFlag = false;
                                     }
@@ -89,7 +89,7 @@ namespace BattleshipTest.BoardData
 
                                 if ((temp.x + x) < 10 && temp.y < 10)
                                 {
-                                    if ((!(screen[temp.x + x, temp.y].content == "e")))
+                                    if ((!(screen[temp.x + x, temp.y].content == "#")))
                                     {
                                         addingFlag = false;
                                     }
@@ -122,7 +122,7 @@ namespace BattleshipTest.BoardData
             {
                 for (int j = 0; j < screen.GetLength(1); j++)
                 {
-                    Console.Write(screen[j,i].content);
+                    Console.Write("[" + screen[j,i].content + "] ");
                 }
                 Console.WriteLine("");
             }

@@ -16,18 +16,56 @@ namespace BattleshipTest
             board = new Board();
         }
         //Logic for players turn, return true if player has won.
-        public bool turn(Board oppBoard)
+        public bool turn(Board oppBoard, bool debugMode)
         {
-            Coordinate tempCoord;
-            printScreens();
-            tempCoord = chooseMove();
+            Coordinate target;
+            printScreens(oppBoard, debugMode);
+            target = chooseMove();
+            TakeShot(oppBoard, target);
             return false;
         }
-        public void printScreens()
+
+        public void TakeShot(Board oppB, Coordinate target)
+        {
+            //Update boards
+            if (oppB.lowerScreen.screen[target.x, target.y].content != "#")
+            {
+                oppB.lowerScreen.screen[target.x, target.y].content = "H";
+                board.upperScreen.hitOrMissScreen[target.x, target.y] = "H";
+            }
+            else
+            {
+                oppB.lowerScreen.screen[target.x, target.y].content = "M";
+                board.upperScreen.hitOrMissScreen[target.x, target.y] = "M";
+            }
+
+            //Update opponent's ShipData
+
+            oppB.lowerScreen.Ships.ForEach(delegate(Ship ship)
+            {
+                if (ship.isHitDictionary.ContainsKey(target))
+                {
+                    ship.isHitDictionary[target] = true;
+                }
+            });
+
+
+        }
+        public void printScreens(Board oppB, bool dm)
         {
             board.upperScreen.printHitOrMiss();
             Console.WriteLine("");
             board.lowerScreen.print();
+            if (dm == true)
+            {
+                Console.WriteLine("=========Debug Information========");
+                Console.WriteLine("Opponent Lower Board");
+                oppB.lowerScreen.print();
+                Console.WriteLine("");
+                Console.WriteLine("Opponent Ship Data");
+                oppB.lowerScreen.printShipData();
+                Console.WriteLine("");
+            }
         }
         public Coordinate chooseMove()
         {
@@ -74,7 +112,7 @@ namespace BattleshipTest
                     }
                 } while (!legalCoord);
 
-                tempCoord = new Coordinate(xCoord, yCoord);
+                tempCoord = new Coordinate(yCoord, xCoord);
                 if (board.upperScreen.hitOrMissScreen[tempCoord.x, tempCoord.y] == "#")
                 {
                     legalCoord = true;

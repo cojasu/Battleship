@@ -10,16 +10,19 @@ namespace BattleshipTest
     {
         public string difficulty;
         public bool humanGoesFirst;
+        public bool debugMode;
         public Menu()
         {
             difficulty = "easy";
             humanGoesFirst = true;
+            debugMode = false;
         }
 
-        public Menu(string diff, bool hgf)
+        public Menu(string diff, bool hgf, bool dm)
         {
             difficulty = diff;
             humanGoesFirst = hgf;
+            debugMode = dm;
         }
 
         public void Display()
@@ -63,6 +66,23 @@ namespace BattleshipTest
                     difficulty = "hard";
                 }
 
+            } while (!validChoice);
+
+            Console.WriteLine("Do you want to turn Debug Mode on? y/n");
+            validChoice = false;
+            do
+            {
+                ans = Console.ReadLine();
+                if (ans == "y")
+                {
+                    validChoice = true;
+                    debugMode = true;
+                }
+                else if (ans == "n")
+                {
+                    validChoice = true;
+                    debugMode = false;
+                }
             } while (!validChoice);
 
         }

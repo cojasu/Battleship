@@ -16,14 +16,14 @@ namespace BattleshipTest.BoardData
         {
             this.x = x;
             this.y = y;
-            content = "e";
+            content = "#";
         }
 
         public Coordinate()
         {
             this.x = generateRandom();
             this.y = generateRandom();
-            content = "e";
+            content = "#";
         }
 
         int generateRandom()
