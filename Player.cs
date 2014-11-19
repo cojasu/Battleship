@@ -16,28 +16,75 @@ namespace BattleshipTest
             board = new Board();
         }
         //Logic for players turn, return true if player has won.
-        public bool turn()
+        public bool turn(Board oppBoard)
         {
+            Coordinate tempCoord;
             printScreens();
-            Coordinate tempCoord = getShot();
-
-
+            tempCoord = chooseMove();
             return false;
         }
-
-        public Coordinate getShot()
+        public void printScreens()
         {
-            Coordinate tempCoord = new Coordinate();
-            return tempCoord;
-        }
-        public void printScreens(){
             board.upperScreen.printHitOrMiss();
             Console.WriteLine("");
             board.lowerScreen.print();
         }
         public Coordinate chooseMove()
         {
-            Coordinate tempCoord = new Coordinate();
+            int xCoord;
+            int yCoord;
+            string input = "";
+            bool legalCoord = false;
+            Coordinate tempCoord;
+            Console.WriteLine("Enter your x Coordinate (0 - 9)");
+            do
+            {
+                do
+                {
+                    do
+                    {
+                        input = Console.ReadLine();
+                        legalCoord = Int32.TryParse(input, out xCoord);
+                    } while (!legalCoord);
+                    legalCoord = false;
+                    if (xCoord < 10)
+                    {
+                        if (xCoord > -1)
+                        {
+                            legalCoord = true;
+                        }
+                    }
+                } while (!legalCoord);
+                legalCoord = false;
+                Console.WriteLine("Enter your y Coordinate (0 - 9)");
+                do
+                {
+                    do
+                    {
+                        input = Console.ReadLine();
+                        legalCoord = Int32.TryParse(input, out yCoord);
+                    } while (!legalCoord);
+                    legalCoord = false;
+                    if (yCoord < 10)
+                    {
+                        if (yCoord > -1)
+                        {
+                            legalCoord = true;
+                        }
+                    }
+                } while (!legalCoord);
+
+                tempCoord = new Coordinate(xCoord, yCoord);
+                if (board.upperScreen.hitOrMissScreen[tempCoord.x, tempCoord.y] == "#")
+                {
+                    legalCoord = true;
+                }
+                else
+                {
+                    Console.WriteLine("Shot already has been taken");
+                    legalCoord = false;
+                }
+            } while (!legalCoord);
             return tempCoord;
         }
     }

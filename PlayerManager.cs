@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BattleshipTest.BoardData;
 
 namespace BattleshipTest
 {
@@ -34,13 +35,13 @@ namespace BattleshipTest
         {
             if (isHumanFirst)
             {
-                player.turn();
+                player.turn(computerPlayer.board);
                 computerPlayer.turn();
             }
             else
             {
                 computerPlayer.turn();
-                player.turn();
+                player.turn(computerPlayer.board);
             }
         }
     }
