@@ -7,7 +7,7 @@ using BattleshipTest.BoardData;
 
 namespace BattleshipTest
 {
-    class Ship
+    public class Ship
     {
         public int length;
         public string type;

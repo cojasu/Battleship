@@ -8,9 +8,9 @@ namespace BattleshipTest.BoardData
 {
     public class LowerScreen
     {
-        Coordinate[,] screen = new Coordinate[10, 10];
+        public Coordinate[,] screen = new Coordinate[10, 10];
 
-        List<Ship> Ships = new List<Ship>();
+        public List<Ship> Ships = new List<Ship>();
 
         public LowerScreen()
         {

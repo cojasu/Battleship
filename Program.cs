@@ -18,6 +18,9 @@ namespace BattleshipTest
             Console.WriteLine("Finished creating player");
             ComputerPlayer computer = new ComputerPlayer(m.difficulty);
             Console.WriteLine("Finished creating computer");
+            player.board.upperScreen.screen = player.board.upperScreen.getUpperScreenFromOpponent(computer.board.lowerScreen);
+            computer.board.upperScreen.screen = player.board.upperScreen.getUpperScreenFromOpponent(player.board.lowerScreen);
+
             //Main game loop
             while (didSomeoneWin == false)
             {
