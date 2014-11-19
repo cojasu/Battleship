@@ -9,12 +9,12 @@ namespace BattleshipTest
 {
     class Ship
     {
-        int length;
-        string type;
+        public int length;
+        public string type;
 
-        Dictionary<Coordinate, bool> isHitDictionary;
+        public Dictionary<Coordinate, bool> isHitDictionary = new Dictionary<Coordinate,bool>();
 
-        Ship(int length, string type)
+        public Ship(int length, string type)
         {
             this.length = length;
             this.type = type;

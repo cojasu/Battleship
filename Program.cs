@@ -13,9 +13,11 @@ namespace BattleshipTest
         {
 
             Player player = new Player();
+            Console.WriteLine("Finished creating player");
             AI computer = new AI();
+            Console.WriteLine("Finished creating AI");
 
-            player.board.upperScreen.print();
+            player.board.lowerScreen.print();
             Console.WriteLine("Press enter to close...");
             Console.ReadLine();
         }

@@ -10,11 +10,27 @@ namespace BattleshipTest.BoardData
     {
         public int x;
         public int y;
+        public string content;
 
         public Coordinate(int x, int y)
         {
             this.x = x;
             this.y = y;
+            content = "e";
         }
+
+        public Coordinate()
+        {
+            this.x = generateRandom();
+            this.y = generateRandom();
+            content = "e";
+        }
+
+        int generateRandom()
+        {
+            Random rnd = new Random();
+            return rnd.Next(10);
+        }
+
     }
 }
