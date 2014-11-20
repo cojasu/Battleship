@@ -48,6 +48,7 @@ namespace BattleshipTest
                 computerPlayer.turn();
                 player.turn(computerPlayer.board, debugMode);
             }
+            return false;
         }
     }
 }

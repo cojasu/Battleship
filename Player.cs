@@ -60,8 +60,6 @@ namespace BattleshipTest
                     ship.isHitDictionary[target] = true;
                 }
             });
-
-
         }
         public void printScreens(Board oppB, bool dm)
         {
