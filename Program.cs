@@ -13,6 +13,8 @@ namespace BattleshipTest
         static void Main(string[] args)
         {
             Menu m = new Menu();
+            Game myGame = new Game();
+            Application.Run(myGame);
             PlayerManager playerManager = new PlayerManager(m.difficulty);
 
             bool didSomeoneWin = false;
