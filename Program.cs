@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BattleshipTest.BoardData;
+using System.Windows.Forms;
 
 namespace BattleshipTest
 {
@@ -12,7 +13,6 @@ namespace BattleshipTest
         static void Main(string[] args)
         {
             Menu m = new Menu();
-            m.Display();
             PlayerManager playerManager = new PlayerManager(m.difficulty);
 
             bool didSomeoneWin = false;
@@ -23,6 +23,7 @@ namespace BattleshipTest
             }
             Console.WriteLine("Press enter to close...");
             Console.ReadLine();
+
         }
     }
 }
