@@ -125,7 +125,7 @@ namespace BattleshipTest
                     }
                 } while (!legalCoord);
 
-                tempCoord = new Coordinate(yCoord, xCoord);
+                tempCoord = new Coordinate(xCoord, yCoord);
                 if (board.upperScreen.hitOrMissScreen[tempCoord.x, tempCoord.y] == "#")
                 {
                     legalCoord = true;
