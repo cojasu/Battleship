@@ -39,5 +39,20 @@ namespace BattleshipTest.BoardData
             return rnd.Next(10);
         }
 
+        
+    }
+
+    public class CoordinateEqualityComparer : IEqualityComparer<Coordinate>
+    {
+        public bool Equals(Coordinate x, Coordinate y)
+        {
+            return ((x.x == y.x) & (x.y == y.y) & (x.content == y.content));
+            }
+
+        public int GetHashCode(Coordinate obj)
+        {
+            string combined = obj.x.ToString() + "|" + obj.y.ToString() + "|" + obj.content.ToString();
+            return (combined.GetHashCode());
+        }
     }
 }

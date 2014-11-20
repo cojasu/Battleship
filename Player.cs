@@ -46,8 +46,11 @@ namespace BattleshipTest
             {
                 if (debug == true)
                 {
-                    Console.WriteLine("DEBUG INFO: On Ship " + ship.type + " : Target " + target.x + "" + target.y + "" + target.content);
-                    
+                    Console.WriteLine("DEBUG INFO: On Ship " + ship.type + " : Target X: " + target.x + " Target Y: " + target.y + " Target Content: " + target.content);
+                    foreach (Coordinate coord in ship.isHitDictionary.Keys)
+                    {
+                        Console.WriteLine("DEBUG INFO: CoordKey X: " + coord.x + " Y: " + coord.y + " Content: " + coord.content);
+                    }
                 }
                 if (ship.isHitDictionary.ContainsKey(target))
                 {
