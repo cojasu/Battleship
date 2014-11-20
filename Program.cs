@@ -19,7 +19,7 @@ namespace BattleshipTest
             //Main game loop
             while (didSomeoneWin == false)
             {
-                playerManager.update(m.humanGoesFirst, m.debugMode);
+                didSomeoneWin = playerManager.update(m.humanGoesFirst, m.debugMode);
             }
             Console.WriteLine("Press enter to close...");
             Console.ReadLine();

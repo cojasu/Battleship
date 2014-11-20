@@ -16,13 +16,12 @@ namespace BattleshipTest
             board = new Board();
         }
         //Logic for players turn, return true if player has won.
-        public bool turn(Board oppBoard, bool debugMode)
+        public void turn(Board oppBoard, bool debugMode)
         {
             Coordinate target;
             printScreens(oppBoard, debugMode);
             target = chooseMove();
             TakeShot(oppBoard, target, debugMode);
-            return false;
         }
 
         public void TakeShot(Board oppB, Coordinate target, bool debug)
@@ -46,8 +45,11 @@ namespace BattleshipTest
             {
                 if (debug == true)
                 {
-                    Console.WriteLine("DEBUG INFO: On Ship " + ship.type + " : Target " + target.x + "" + target.y + "" + target.content);
-                    
+                    Console.WriteLine("DEBUG INFO: On Ship " + ship.type + " : Target X: " + target.x + " Target Y: " + target.y + " Target Content: " + target.content);
+                    foreach (Coordinate coord in ship.isHitDictionary.Keys)
+                    {
+                        Console.WriteLine("DEBUG INFO: CoordKey X: " + coord.x + " Y: " + coord.y + " Content: " + coord.content);
+                    }
                 }
                 if (ship.isHitDictionary.ContainsKey(target))
                 {
@@ -58,8 +60,6 @@ namespace BattleshipTest
                     ship.isHitDictionary[target] = true;
                 }
             });
-
-
         }
         public void printScreens(Board oppB, bool dm)
         {
@@ -77,6 +77,23 @@ namespace BattleshipTest
                 Console.WriteLine("");
             }
         }
+
+        public bool CheckWin(List<Ship> s){
+            bool didWin = true;
+            s.ForEach(delegate(Ship ship)
+            {
+                foreach (KeyValuePair<Coordinate, bool> coord in ship.isHitDictionary)
+                {
+                    if (coord.Value == false)
+                    {
+                        didWin = false;
+                        break;
+                    }
+                }
+            });
+
+            return didWin;
+        }
         public Coordinate chooseMove()
         {
             int xCoord;
@@ -84,9 +101,9 @@ namespace BattleshipTest
             string input = "";
             bool legalCoord = false;
             Coordinate tempCoord;
-            Console.WriteLine("Enter your x Coordinate (0 - 9)");
             do
             {
+                Console.WriteLine("Enter your x Coordinate (0 - 9)");
                 do
                 {
                     do
@@ -122,7 +139,7 @@ namespace BattleshipTest
                     }
                 } while (!legalCoord);
 
-                tempCoord = new Coordinate(yCoord, xCoord);
+                tempCoord = new Coordinate(xCoord, yCoord);
                 if (board.upperScreen.hitOrMissScreen[tempCoord.x, tempCoord.y] == "#")
                 {
                     legalCoord = true;
