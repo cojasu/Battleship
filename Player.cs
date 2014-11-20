@@ -16,13 +16,12 @@ namespace BattleshipTest
             board = new Board();
         }
         //Logic for players turn, return true if player has won.
-        public bool turn(Board oppBoard, bool debugMode)
+        public void turn(Board oppBoard, bool debugMode)
         {
             Coordinate target;
             printScreens(oppBoard, debugMode);
             target = chooseMove();
             TakeShot(oppBoard, target, debugMode);
-            return false;
         }
 
         public void TakeShot(Board oppB, Coordinate target, bool debug)
@@ -80,6 +79,23 @@ namespace BattleshipTest
                 Console.WriteLine("");
             }
         }
+
+        public bool CheckWin(List<Ship> s){
+            bool didWin = true;
+            s.ForEach(delegate(Ship ship)
+            {
+                foreach (KeyValuePair<Coordinate, bool> coord in ship.isHitDictionary)
+                {
+                    if (coord.Value == false)
+                    {
+                        didWin = false;
+                        break;
+                    }
+                }
+            });
+
+            return didWin;
+        }
         public Coordinate chooseMove()
         {
             int xCoord;
@@ -87,9 +103,9 @@ namespace BattleshipTest
             string input = "";
             bool legalCoord = false;
             Coordinate tempCoord;
-            Console.WriteLine("Enter your x Coordinate (0 - 9)");
             do
             {
+                Console.WriteLine("Enter your x Coordinate (0 - 9)");
                 do
                 {
                     do
