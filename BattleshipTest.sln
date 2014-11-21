@@ -6,6 +6,11 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BattleshipTest", "BattleshipTest.csproj", "{C21AB447-CCB1-4E3E-9306-DCD4FD2014E6}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{502C9D5A-3B63-44BE-B7CA-60B89EAEFFD6}"
+	ProjectSection(SolutionItems) = preProject
+		userOps.cs = userOps.cs
+		userOps.Designer.cs = userOps.Designer.cs
+		userOps.resx = userOps.resx
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

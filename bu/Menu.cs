@@ -17,7 +17,7 @@ namespace BattleshipTest
         public Menu()
         {
             Application.EnableVisualStyles();
-        //    Application.SetCompatibleTextRenderingDefault(false);
+            Application.SetCompatibleTextRenderingDefault(false);
             userOps myMenu = new userOps();
             Application.Run(myMenu);
             difficulty = myMenu.difficulty;
