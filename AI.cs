@@ -9,6 +9,13 @@ namespace BattleshipTest
 {
     public class AI
     {
+        //variables for hunting and targetting
+        Coordinate lastHit;
+        bool isHunting = true;
+        bool isLeftMiss;
+        bool isRightMiss;
+        bool isTopMiss;
+        bool isBottomMiss;
         public string difficulty;
         public AI()
         {
@@ -20,7 +27,7 @@ namespace BattleshipTest
             difficulty = dif;
         }
 
-        public Coordinate chooseMove()
+        public Coordinate chooseMove(Board oppB)
         {
             //random
             if (difficulty == "easy")
@@ -30,7 +37,7 @@ namespace BattleshipTest
             //hunting and targeting
             if (difficulty == "medium")
             {
-                return mediumMove();
+                return mediumMove(oppB);
             }
             //Heat map
             else
@@ -46,9 +53,17 @@ namespace BattleshipTest
             return tempCoord;
         }
 
-        Coordinate mediumMove()
+        Coordinate mediumMove( Board oppB)
         {
-            Coordinate tempCoord = new Coordinate();
+            Coordinate tempCoord;
+            if (isHunting)
+            {
+                tempCoord = HuntShip();
+            }
+            else
+            {
+                tempCoord = generateLegalRandomMove();
+            }
             return tempCoord;
         }
 
@@ -56,6 +71,17 @@ namespace BattleshipTest
         {
             Coordinate tempCoord = new Coordinate();
             return tempCoord;
+        }
+
+        Coordinate HuntShip()
+        {
+            return null;
+        }
+
+        Coordinate generateLegalRandomMove()
+        {
+            Coordinate tempCoord;
+            return null;
         }
     }
 }
