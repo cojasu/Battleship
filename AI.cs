@@ -12,11 +12,11 @@ namespace BattleshipTest
         //variables for hunting and targetting
         Coordinate lastHit;
         bool isHunting = true;
-        bool isLeftMiss;
-        bool isRightMiss;
-        bool isTopMiss;
-        bool isBottomMiss;
+        bool lastShotHit;
+        string direction;
+        heatMap hm;
         public string difficulty;
+        List<Coordinate> listOfPastShots = new List<Coordinate>();
         public AI()
         {
 
@@ -55,33 +55,30 @@ namespace BattleshipTest
 
         Coordinate mediumMove( Board oppB)
         {
-            Coordinate tempCoord;
-            if (isHunting)
-            {
-                tempCoord = HuntShip();
-            }
-            else
-            {
-                tempCoord = generateLegalRandomMove();
-            }
-            return tempCoord;
+            return null;
         }
 
         Coordinate hardMove()
         {
-            Coordinate tempCoord = new Coordinate();
-            return tempCoord;
+            return null;
         }
 
         Coordinate HuntShip()
         {
+            direction = getDirection();
             return null;
         }
 
         Coordinate generateLegalRandomMove()
         {
-            Coordinate tempCoord;
+            Coordinate temp = new Coordinate(listOfPastShots);
             return null;
         }
+
+        string getDirection()
+        {
+            return null;
+        }
+
     }
 }

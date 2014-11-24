@@ -11,6 +11,8 @@ namespace BattleshipTest.BoardData
         public int x;
         public int y;
         public string content;
+        public double probability = 0;
+        public int count = 0;
 
         public Coordinate(int x, int y)
         {
@@ -31,6 +33,28 @@ namespace BattleshipTest.BoardData
             this.x = generateRandom();
             this.y = generateRandom();
             content = "#";
+        }
+
+        public Coordinate(List<Coordinate> pastShots)
+        {
+            bool legal;
+            do
+            {
+                legal = true;
+                this.x = generateRandom();
+                this.y = generateRandom();
+                foreach (Coordinate coord in pastShots)
+                {
+                    if (coord.x == this.x)
+                    {
+                        if (coord.y == this.y)
+                        {
+                            legal = false;
+                        }
+                    }
+                }
+            } while (!legal);
+            this.content = "#";
         }
 
         int generateRandom()

@@ -11,7 +11,6 @@ namespace BattleshipTest
     {
         public int length;
         public string type;
-
         public Dictionary<Coordinate, bool> isHitDictionary = new Dictionary<Coordinate,bool>(new CoordinateEqualityComparer());
 
         public Ship(int length, string type)
