@@ -41,11 +41,11 @@ namespace BattleshipTest
                     Console.WriteLine("Congratulations You Win");
                     return true;
                 }
-                computerPlayer.turn();
+                computerPlayer.turn(player.board);
             }
             else
             {
-                computerPlayer.turn();
+                computerPlayer.turn(player.board);
                 player.turn(computerPlayer.board, debugMode);
             }
             return false;

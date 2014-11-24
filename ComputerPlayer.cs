@@ -39,12 +39,12 @@ namespace BattleshipTest
             }
         }
         //Logic for taking computers turn. returns true if computer has won.
-        public bool turn()
+        public bool turn(Board oppb)
         {
             //Get coordinate for shot.
             Coordinate target = new Coordinate();
             do{
-                target = ai.chooseMove();
+                target = ai.chooseMove(oppb);
             }while(!(isLegal(target)));
             
             //Take the Shot
