@@ -23,22 +23,55 @@ namespace BattleshipTest
             board = new Board(dm);
         }
 
-        public void takeShot(Coordinate coord){
+        public void takeShot(Coordinate target, Board oppb, bool debug){
+            if (oppb.lowerScreen.screen[target.x, target.y].content != "#")
+            {
+                target.content = oppb.lowerScreen.screen[target.x, target.y].content;
+                oppb.lowerScreen.screen[target.x, target.y].content = "H";
+                board.upperScreen.hitOrMissScreen[target.x, target.y] = "H";
+            }
+            else
+            {
+                oppb.lowerScreen.screen[target.x, target.y].content = "M";
+                board.upperScreen.hitOrMissScreen[target.x, target.y] = "M";
+            }
 
+            Console.WriteLine("Computer took shot at X: " + target.x + " Y: " + target.y);
         }
 
         public bool isLegal(Coordinate target)
         {
-            if (board.upperScreen.screen[target.x, target.y].content == "#")
+            Console.WriteLine("Target data : X: " + target.x + " Y: " + target.y + " Content: " + target.content);
+            Console.WriteLine("upperScreen data : Content : " + board.upperScreen.screen[target.x, target.y].content);
+            if (board.upperScreen.screen[target.x, target.y].content != "H")
             {
-
-                return true;
+                if (board.upperScreen.screen[target.x, target.y].content != "M")
+                {
+                    return true;
+                }
+                return false;
             }
             else
             {
-                Console.WriteLine("Target not legal");
                 return false;
             }
+        }
+        public bool CheckWin(List<Ship> s)
+        {
+            bool didWin = true;
+            s.ForEach(delegate(Ship ship)
+            {
+                foreach (KeyValuePair<Coordinate, bool> coord in ship.isHitDictionary)
+                {
+                    if (coord.Value == false)
+                    {
+                        didWin = false;
+                        break;
+                    }
+                }
+            });
+
+            return didWin;
         }
         //Logic for taking computers turn. returns true if computer has won.
         public bool turn(Board oppb, bool debug)
@@ -50,7 +83,7 @@ namespace BattleshipTest
             }while(!(isLegal(target)));
             
             //Take the Shot
-            takeShot(target);
+            takeShot(target, oppb, debug);
 
             //Check to see if won.
             return false;

@@ -58,16 +58,31 @@ namespace BattleshipTest
 
         Coordinate hardMove(Board oppB, Coordinate[,] heatmap)
         {
+            if (debugMode)
+            {
+                Console.WriteLine("Press Enter to Continue");
+                Console.ReadLine();
+            }
                 Coordinate holdingCoord = new Coordinate();
-                for (int x = 0; x < 10; x++)
+                for (int i = 0; i < 10; i++)
                 {
-                    for (int y = 0; y < 10; y++)
+                    for (int j = 0; j < 10; j++)
                     {
-                        if (heatmap[x,y].count > holdingCoord.count)
+                        if (debugMode == true)
                         {
-                            holdingCoord.x = heatmap[x, y].x;
-                            holdingCoord.y = heatmap[x, y].y;
-                            holdingCoord.count = heatmap[x, y].count;
+                            Console.WriteLine("DEBUG INFO: heatmap[x,y]: " + heatmap[i, j].x + " " + heatmap[i, j].y + " " + heatmap[i, j].count);
+                            Console.WriteLine("DEBUG INFO: holdingCoord: " + holdingCoord.x + " " + holdingCoord.y + " " + holdingCoord.count);
+                        }
+                        if (heatmap[i,j].count > holdingCoord.count)
+                        {
+
+                            if (debugMode == true)
+                            {
+                                Console.WriteLine("Probability changed.  Old: " + holdingCoord.count + "New " + heatmap[i, j].count);
+                            }
+                            holdingCoord.x = heatmap[i, j].x;
+                            holdingCoord.y = heatmap[i, j].y;
+                            holdingCoord.count = heatmap[i, j].count;
                         }
                     }
                 }

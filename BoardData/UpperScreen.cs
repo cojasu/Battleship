@@ -36,7 +36,7 @@ namespace BattleshipTest.BoardData
             {
                 for (int j = 0; j < screen.GetLength(1); j++)
                 {
-                    Console.Write("[" + screen[i, j].content + "] ");
+                    Console.Write("[" + screen[j, i].content + "] ");
                 }
                 Console.WriteLine("");
             }
@@ -47,7 +47,7 @@ namespace BattleshipTest.BoardData
             {
                 for (int j = 0; j < screen.GetLength(1); j++)
                 {
-                    Console.Write("[" + hitOrMissScreen[i,j] +"] ");
+                    Console.Write("[" + hitOrMissScreen[j,i] +"] ");
                 }
                 Console.WriteLine("");
             }
@@ -79,7 +79,13 @@ namespace BattleshipTest.BoardData
         }
         void getCounts(LowerScreen ls)
         {
-
+            for (int i = 0; i < 10; i++)
+            {
+                for (int j = 0; j < 10; j++)
+                {
+                    heatmap[i, j].count = 0;
+                }
+            }
                 for (int i = 0; i < 10; i++)
                 {
                     for (int j = 0; j < 10; j++)
@@ -99,6 +105,10 @@ namespace BattleshipTest.BoardData
                     for (int j = 0; j < 10; j++)
                     {
                         if (hitOrMissScreen[i, j] == "H")
+                        {
+                            heatmap[i, j].count = 0;
+                        }
+                        if (hitOrMissScreen[i, j] == "M")
                         {
                             heatmap[i, j].count = 0;
                         }
@@ -132,7 +142,7 @@ namespace BattleshipTest.BoardData
                 }
                 else if (hitOrMissScreen[x, y + i] == "M")
                 {
-                    break;
+                    return;
                 }
                 if (hitOrMissScreen[x, y + i] == "H")
                 {
@@ -168,7 +178,6 @@ namespace BattleshipTest.BoardData
                 }
                 if (x + i > 9)
                 {
-                    Console.WriteLine("Returning");
                     return;
                 }
                 else if (hitOrMissScreen[x + i, y] == "M")
@@ -204,13 +213,13 @@ namespace BattleshipTest.BoardData
                 {
                     for (int j = 0; j < heatmap.GetLength(1); j++)
                     {
-                        if (heatmap[i, j].count < 10)
+                        if (heatmap[j, i].count < 10)
                         {
-                            Console.Write("[ " + heatmap[i, j].count + "] ");
+                            Console.Write("[ " + heatmap[j, i].count + "] ");
                         }
                         else
                         {
-                            Console.Write("[" + heatmap[i, j].count + "] ");
+                            Console.Write("[" + heatmap[j, i].count + "] ");
                         }
                     }
                     Console.WriteLine("");

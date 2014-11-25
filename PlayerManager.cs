@@ -43,6 +43,11 @@ namespace BattleshipTest
                 }
                 computerPlayer.board.upperScreen.updateHeatMap(player.board.lowerScreen);
                 computerPlayer.turn(player.board, debugMode);
+                if (computerPlayer.CheckWin(player.board.lowerScreen.Ships))
+                {
+                    Console.WriteLine("The Computer wins");
+                    return true;
+                }
             }
             else
             {

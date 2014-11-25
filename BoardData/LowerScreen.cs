@@ -34,7 +34,6 @@ namespace BattleshipTest.BoardData
             Ships.Add(submarine);
             Ships.Add(destroyer);
             Ships.Add(boat);
-            Console.WriteLine("Starting to initialize Ship Data");
             initializeShipData();
 
         }
