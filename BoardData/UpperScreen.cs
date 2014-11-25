@@ -11,7 +11,7 @@ namespace BattleshipTest.BoardData
         public Coordinate[,] screen = new Coordinate[10, 10];
         public string[,] hitOrMissScreen = new string[10, 10];
         public Coordinate[,] heatmap = new Coordinate[10, 10];
-        public List<Ship> listofOpponentsActiveShips = new List<Ship>();
+        public List<Ship> listofOpponentsSunkShips = new List<Ship>();
         bool debugMode;
 
         public UpperScreen(bool dm)
@@ -21,7 +21,7 @@ namespace BattleshipTest.BoardData
             {
                 for (int j = 0; j < screen.GetLength(1); j++)
                 {
-                    screen[i, j] = new Coordinate(i,j);
+                    screen[i, j] = new Coordinate(i, j);
                     hitOrMissScreen[i, j] = "#";
                     heatmap[i, j] = new Coordinate(i, j);
                 }
@@ -47,12 +47,12 @@ namespace BattleshipTest.BoardData
             {
                 for (int j = 0; j < screen.GetLength(1); j++)
                 {
-                    Console.Write("[" + hitOrMissScreen[j,i] +"] ");
+                    Console.Write("[" + hitOrMissScreen[j, i] + "] ");
                 }
                 Console.WriteLine("");
             }
         }
-        
+
         public Coordinate[,] getUpperScreenFromOpponent(LowerScreen screen)
         {
             UpperScreen tempScreen = new UpperScreen(debugMode);
@@ -60,14 +60,15 @@ namespace BattleshipTest.BoardData
             {
                 for (int j = 0; j < tempScreen.screen.GetLength(1); j++)
                 {
-                        tempScreen.screen[i,j] = screen.screen[i,j];
+                    tempScreen.screen[i, j] = screen.screen[i, j];
                 }
             }
             return tempScreen.screen;
         }
 
         #region Heatmap Stuff
-        public void updateHeatMap(LowerScreen ls){
+        public void updateHeatMap(LowerScreen ls)
+        {
             getCounts(ls);
             printCounts();
             resetCounts();
@@ -79,6 +80,15 @@ namespace BattleshipTest.BoardData
         }
         void getCounts(LowerScreen ls)
         {
+            List<Coordinate> listOfCoordinatesFromSunkShips = new List<Coordinate>();
+            listofOpponentsSunkShips.ForEach(delegate(Ship ship)
+            {
+                foreach (KeyValuePair<Coordinate, bool> coord in ship.isHitDictionary)
+                {
+                    listOfCoordinatesFromSunkShips.Add(coord.Key);
+                }
+            });
+
             for (int i = 0; i < 10; i++)
             {
                 for (int j = 0; j < 10; j++)
@@ -86,34 +96,34 @@ namespace BattleshipTest.BoardData
                     heatmap[i, j].count = 0;
                 }
             }
-                for (int i = 0; i < 10; i++)
+            for (int i = 0; i < 10; i++)
+            {
+                for (int j = 0; j < 10; j++)
                 {
-                    for (int j = 0; j < 10; j++)
+                    foreach (Ship ship in ls.Ships)
                     {
-                        foreach (Ship ship in ls.Ships)
+                        if (shipIsAlive(ship))
                         {
-                            if (shipIsAlive(ship))
-                            {
-                                countShipFitHorizontal(ship, i, j);
-                                countShipFitVertical(ship, i, j);
-                            }
+                            countShipFitHorizontal(ship, i, j, listOfCoordinatesFromSunkShips);
+                            countShipFitVertical(ship, i, j, listOfCoordinatesFromSunkShips);
                         }
                     }
                 }
-                for (int i = 0; i < 10; i++)
+            }
+            for (int i = 0; i < 10; i++)
+            {
+                for (int j = 0; j < 10; j++)
                 {
-                    for (int j = 0; j < 10; j++)
+                    if (hitOrMissScreen[i, j] == "H")
                     {
-                        if (hitOrMissScreen[i, j] == "H")
-                        {
-                            heatmap[i, j].count = 0;
-                        }
-                        if (hitOrMissScreen[i, j] == "M")
-                        {
-                            heatmap[i, j].count = 0;
-                        }
+                        heatmap[i, j].count = 0;
+                    }
+                    if (hitOrMissScreen[i, j] == "M")
+                    {
+                        heatmap[i, j].count = 0;
                     }
                 }
+            }
         }
 
 
@@ -128,7 +138,7 @@ namespace BattleshipTest.BoardData
             }
             return false;
         }
-        void countShipFitVertical(Ship ship, int x, int y)
+        void countShipFitVertical(Ship ship, int x, int y, List<Coordinate> list)
         {
             for (int i = 0; i < ship.length; i++)
             {
@@ -142,33 +152,48 @@ namespace BattleshipTest.BoardData
                 }
                 else if (hitOrMissScreen[x, y + i] == "M")
                 {
-                    return;
+                    break;
                 }
-                if (hitOrMissScreen[x, y + i] == "H")
+                if (list.Contains(new Coordinate(x, y + i, "H")))
                 {
-                    if (y + i - 1 > -1)
+                    if (debugMode)
                     {
-                        heatmap[x, y + i - 1].count++;
+                        Console.WriteLine("Coordinate is already sunk");
                     }
                 }
-                if (!(y - i < 1))
+                else
                 {
-                    if (hitOrMissScreen[x, y - 1] == "H")
+                    if (hitOrMissScreen[x, y + i] == "H")
                     {
-                        if (y + i + 1 < 10)
+                        if (y + i - 1 > -1)
                         {
-                            heatmap[x, y + i + 1].count++;
+                            heatmap[x, y + i - 1].count++;
+                        }
+                    }
+
+                    if (!(y - i < 1))
+                    {
+                        if (hitOrMissScreen[x, y - 1] == "H")
+                        {
+                            if (y + i + 1 < 10)
+                            {
+                                heatmap[x, y + i + 1].count++;
+                            }
                         }
                     }
                 }
+
             }
             for (int i = 0; i < ship.length; i++)
             {
-                heatmap[x, y + i].count++;
+                if (y + i < 10)
+                {
+                    heatmap[x, y + i].count++;
+                }
             }
         }
 
-        void countShipFitHorizontal(Ship ship, int x, int y)
+        void countShipFitHorizontal(Ship ship, int x, int y, List<Coordinate> list)
         {
             for (int i = 0; i < ship.length; i++)
             {
@@ -184,47 +209,60 @@ namespace BattleshipTest.BoardData
                 {
                     break;
                 }
-                if (hitOrMissScreen[x + i, y] == "H")
+                if (list.Contains(new Coordinate(x + i, y, "H")))
                 {
-                    if (x + i - 1 > -1)
+                    if (debugMode)
                     {
-                        heatmap[x + i - 1, y].count++;
+                        Console.WriteLine("Coordinate is already sunk");
                     }
                 }
-                if (!(x - i < 1))
+                else
                 {
-                    if (hitOrMissScreen[x - 1, y] == "H")
+                    if (hitOrMissScreen[x + i, y] == "H")
                     {
-                        if (x + i + 1 < 10)
+                        if (x + i - 1 > -1)
                         {
-                            heatmap[x + i + 1, y].count++;
+                            heatmap[x + i - 1, y].count++;
+                        }
+                    }
+                    if (!(x - i < 1))
+                    {
+                        if (hitOrMissScreen[x - 1, y] == "H")
+                        {
+                            if (x + i + 1 < 10)
+                            {
+                                heatmap[x + i + 1, y].count++;
+                            }
                         }
                     }
                 }
             }
             for (int i = 0; i < ship.length; i++)
             {
-                heatmap[x + i, y].count++;
+                if (x + i < 10)
+                {
+                    heatmap[x + i, y].count++;
+                }
             }
         }
         void printCounts()
         {
-                for (int i = 0; i < heatmap.GetLength(0); i++)
+            for (int i = 0; i < heatmap.GetLength(0); i++)
+            {
+                for (int j = 0; j < heatmap.GetLength(1); j++)
                 {
-                    for (int j = 0; j < heatmap.GetLength(1); j++)
+                    if (heatmap[j, i].count < 10)
                     {
-                        if (heatmap[j, i].count < 10)
-                        {
-                            Console.Write("[ " + heatmap[j, i].count + "] ");
-                        }
-                        else
-                        {
-                            Console.Write("[" + heatmap[j, i].count + "] ");
-                        }
+                        Console.Write("[ " + heatmap[j, i].count + "] ");
                     }
-                    Console.WriteLine("");
+                    else
+                    {
+                        Console.Write("[" + heatmap[j, i].count + "] ");
+                    }
                 }
-            
+                Console.WriteLine("");
+            }
+
         }
 
         #endregion

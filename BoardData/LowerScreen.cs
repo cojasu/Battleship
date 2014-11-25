@@ -142,6 +142,33 @@ namespace BattleshipTest.BoardData
                 }
             });
         }
+
+        public List<Ship> getListofDeadShips()
+        {
+            List<Ship> tempList = new List<Ship>();
+            Ships.ForEach(delegate(Ship ship)
+            {
+                bool shipCheck = true;
+                foreach (KeyValuePair<Coordinate, bool> coord in ship.isHitDictionary)
+                {
+                    if (coord.Value == false)
+                    {
+                        shipCheck = false;
+                        break;
+                    }
+                }
+                if (shipCheck)
+                {
+                    tempList.Add(ship);
+                }
+            });
+
+            foreach (Ship ship in tempList)
+            {
+                Console.WriteLine(ship.type);
+            }
+            return tempList;
+        }
     }
 }
 

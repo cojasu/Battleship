@@ -41,6 +41,7 @@ namespace BattleshipTest
                     Console.WriteLine("Congratulations You Win");
                     return true;
                 }
+                computerPlayer.board.upperScreen.listofOpponentsSunkShips = player.board.lowerScreen.getListofDeadShips();
                 computerPlayer.board.upperScreen.updateHeatMap(player.board.lowerScreen);
                 computerPlayer.turn(player.board, debugMode);
                 if (computerPlayer.CheckWin(player.board.lowerScreen.Ships))
