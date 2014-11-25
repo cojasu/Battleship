@@ -25,7 +25,7 @@ namespace BattleshipTest
             debugMode = dm;
         }
 
-        public Coordinate chooseMove(Board oppB)
+        public Coordinate chooseMove(Board oppB, Coordinate[,] heatmap)
         {
             //random
             if (difficulty == "easy")
@@ -40,7 +40,7 @@ namespace BattleshipTest
             //Heat map
             else
             {
-                return hardMove(oppB);
+                return hardMove(oppB, heatmap);
             }
         }
 
@@ -56,27 +56,18 @@ namespace BattleshipTest
             return null;
         }
 
-        Coordinate hardMove(Board oppB)
+        Coordinate hardMove(Board oppB, Coordinate[,] heatmap)
         {
                 Coordinate holdingCoord = new Coordinate();
                 for (int x = 0; x < 10; x++)
                 {
                     for (int y = 0; y < 10; y++)
                     {
-                        if (debugMode == true)
+                        if (heatmap[x,y].count > holdingCoord.count)
                         {
-                            Console.WriteLine("DEBUG INFO: heatmap[x,y]: " + oppB.upperScreen.heatmap[x, y].x + " " + oppB.upperScreen.heatmap[x, y].y + " " + oppB.upperScreen.heatmap[x, y].count);
-                            Console.WriteLine("DEBUG INFO: holdingCoord: " + holdingCoord.x + " " + holdingCoord.y + " " + holdingCoord.count);
-                        }
-                        if (oppB.upperScreen.heatmap[x,y].probability > holdingCoord.probability)
-                        {
-
-                            if (debugMode == true)
-                            {
-
-                                Console.WriteLine("Probability changed.  Old: " + holdingCoord.probability + "New " + oppB.upperScreen.heatmap[x, y].probability);
-                            }
-                            holdingCoord = oppB.upperScreen.heatmap[x, y];
+                            holdingCoord.x = heatmap[x, y].x;
+                            holdingCoord.y = heatmap[x, y].y;
+                            holdingCoord.count = heatmap[x, y].count;
                         }
                     }
                 }

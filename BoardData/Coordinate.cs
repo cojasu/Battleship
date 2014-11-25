@@ -11,7 +11,6 @@ namespace BattleshipTest.BoardData
         public int x;
         public int y;
         public string content;
-        public double probability;
         public int count;
 
         public Coordinate(int x, int y)
@@ -19,7 +18,6 @@ namespace BattleshipTest.BoardData
             this.x = x;
             this.y = y;
             content = "#";
-            probability = 0;
             count = 0;
         }
 
@@ -28,7 +26,6 @@ namespace BattleshipTest.BoardData
             this.x = x;
             this.y = y;
             content = con;
-            probability = 0;
             count = 0;
         }
 
@@ -37,7 +34,6 @@ namespace BattleshipTest.BoardData
             this.x = generateRandom();
             this.y = generateRandom();
             content = "#";
-            probability = 0;
             count = 0;
         }
 

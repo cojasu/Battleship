@@ -41,7 +41,7 @@ namespace BattleshipTest
                     Console.WriteLine("Congratulations You Win");
                     return true;
                 }
-                player.board.upperScreen.updateHeatMap(computerPlayer.board.lowerScreen);
+                computerPlayer.board.upperScreen.updateHeatMap(player.board.lowerScreen);
                 computerPlayer.turn(player.board, debugMode);
             }
             else

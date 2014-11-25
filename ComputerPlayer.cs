@@ -31,10 +31,12 @@ namespace BattleshipTest
         {
             if (board.upperScreen.screen[target.x, target.y].content == "#")
             {
+
                 return true;
             }
             else
             {
+                Console.WriteLine("Target not legal");
                 return false;
             }
         }
@@ -44,7 +46,7 @@ namespace BattleshipTest
             //Get coordinate for shot.
             Coordinate target = new Coordinate();
             do{
-                target = ai.chooseMove(oppb);
+                target = ai.chooseMove(oppb, board.upperScreen.heatmap);
             }while(!(isLegal(target)));
             
             //Take the Shot

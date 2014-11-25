@@ -16,7 +16,7 @@ namespace BattleshipTest.BoardData
 
         public UpperScreen(bool dm)
         {
-            debugMode = true;
+            debugMode = dm;
             for (int i = 0; i < screen.GetLength(0); i++)
             {
                 for (int j = 0; j < screen.GetLength(1); j++)
@@ -53,7 +53,8 @@ namespace BattleshipTest.BoardData
             }
         }
         
-        public Coordinate[,] getUpperScreenFromOpponent(LowerScreen screen){
+        public Coordinate[,] getUpperScreenFromOpponent(LowerScreen screen)
+        {
             UpperScreen tempScreen = new UpperScreen(debugMode);
             for (int i = 0; i < tempScreen.screen.GetLength(0); i++)
             {
@@ -68,23 +69,31 @@ namespace BattleshipTest.BoardData
         #region Heatmap Stuff
         public void updateHeatMap(LowerScreen ls){
             getCounts(ls);
-            weightProbabilities();
+            printCounts();
+            resetCounts();
         }
 
+        void resetCounts()
+        {
+
+        }
         void getCounts(LowerScreen ls)
         {
+
                 for (int i = 0; i < 10; i++)
                 {
                     for (int j = 0; j < 10; j++)
                     {
                         foreach (Ship ship in ls.Ships)
                         {
-                            countShipFitHorizontal(ship, i, j);
-                            countShipFitVertical(ship, i, j);
+                            if (shipIsAlive(ship))
+                            {
+                                countShipFitHorizontal(ship, i, j);
+                                countShipFitVertical(ship, i, j);
+                            }
                         }
                     }
                 }
-
                 for (int i = 0; i < 10; i++)
                 {
                     for (int j = 0; j < 10; j++)
@@ -97,6 +106,18 @@ namespace BattleshipTest.BoardData
                 }
         }
 
+
+        bool shipIsAlive(Ship ship)
+        {
+            foreach (KeyValuePair<Coordinate, bool> coord in ship.isHitDictionary)
+            {
+                if (coord.Value == false)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
         void countShipFitVertical(Ship ship, int x, int y)
         {
             for (int i = 0; i < ship.length; i++)
@@ -130,10 +151,10 @@ namespace BattleshipTest.BoardData
                         }
                     }
                 }
-                else if (hitOrMissScreen[x, y + i] == "#")
-                {
-                    heatmap[x, y + i].count++;
-                }
+            }
+            for (int i = 0; i < ship.length; i++)
+            {
+                heatmap[x, y + i].count++;
             }
         }
 
@@ -147,6 +168,7 @@ namespace BattleshipTest.BoardData
                 }
                 if (x + i > 9)
                 {
+                    Console.WriteLine("Returning");
                     return;
                 }
                 else if (hitOrMissScreen[x + i, y] == "M")
@@ -170,40 +192,30 @@ namespace BattleshipTest.BoardData
                         }
                     }
                 }
-                else if (hitOrMissScreen[x + i, y] == "#")
-                {
-                    heatmap[x + i, y].count++;
-                }
+            }
+            for (int i = 0; i < ship.length; i++)
+            {
+                heatmap[x + i, y].count++;
             }
         }
-        void weightProbabilities()
+        void printCounts()
         {
-
-            
                 for (int i = 0; i < heatmap.GetLength(0); i++)
                 {
                     for (int j = 0; j < heatmap.GetLength(1); j++)
                     {
-                        Console.Write("[" + heatmap[i, j].count + "] ");
+                        if (heatmap[i, j].count < 10)
+                        {
+                            Console.Write("[ " + heatmap[i, j].count + "] ");
+                        }
+                        else
+                        {
+                            Console.Write("[" + heatmap[i, j].count + "] ");
+                        }
                     }
                     Console.WriteLine("");
                 }
             
-            int total = 0;
-            for (int x = 0; x < 10; x++)
-            {
-                for (int y = 0; y < 10; y++)
-                {
-                    total += heatmap[x, y].count;
-                }
-            }
-            for (int x = 0; x < 10; x++)
-            {
-                for (int y = 0; y < 10; y++)
-                {
-                    heatmap[x, y].probability = heatmap[x, y].count / total;
-                }
-            }
         }
 
         #endregion
