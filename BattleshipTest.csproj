@@ -61,7 +61,6 @@
     <Compile Include="AI.cs" />
     <Compile Include="BoardData\Board.cs" />
     <Compile Include="BoardData\Coordinate.cs" />
-    <Compile Include="BoardData\heatMap.cs" />
     <Compile Include="BoardData\LowerScreen.cs" />
     <Compile Include="BoardData\UpperScreen.cs" />
     <Compile Include="ComputerPlayer.cs" />

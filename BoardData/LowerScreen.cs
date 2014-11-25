@@ -11,9 +11,10 @@ namespace BattleshipTest.BoardData
         public Coordinate[,] screen = new Coordinate[10, 10];
 
         public List<Ship> Ships = new List<Ship>();
-
-        public LowerScreen()
+        public bool debugMode;
+        public LowerScreen(bool dm)
         {
+            debugMode = dm;
             for (int i = 0; i < screen.GetLength(0); i++)
             {
                 for (int j = 0; j < screen.GetLength(1); j++)

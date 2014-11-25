@@ -12,17 +12,17 @@ namespace BattleshipTest
         Player player;
         ComputerPlayer computerPlayer;
 
-        public PlayerManager()
+        public PlayerManager(bool dm)
         {
-            player = new Player();
-            computerPlayer = new ComputerPlayer("easy");
+            player = new Player(dm);
+            computerPlayer = new ComputerPlayer("easy", false);
             updateUpperScreens();
         }
 
-        public PlayerManager(string dif)
+        public PlayerManager(string dif, bool dm)
         {
-            player = new Player();
-            computerPlayer = new ComputerPlayer(dif);
+            player = new Player(dm);
+            computerPlayer = new ComputerPlayer(dif, dm);
             updateUpperScreens();
         }
 
@@ -41,11 +41,12 @@ namespace BattleshipTest
                     Console.WriteLine("Congratulations You Win");
                     return true;
                 }
-                computerPlayer.turn(player.board);
+                player.board.upperScreen.updateHeatMap(computerPlayer.board.lowerScreen);
+                computerPlayer.turn(player.board, debugMode);
             }
             else
             {
-                computerPlayer.turn(player.board);
+                computerPlayer.turn(player.board, debugMode);
                 player.turn(computerPlayer.board, debugMode);
             }
             return false;

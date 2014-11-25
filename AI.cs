@@ -10,21 +10,19 @@ namespace BattleshipTest
     public class AI
     {
         //variables for hunting and targetting
-        Coordinate lastHit;
-        bool isHunting = true;
-        bool lastShotHit;
         string direction;
-        heatMap hm;
         public string difficulty;
+        bool debugMode;
         List<Coordinate> listOfPastShots = new List<Coordinate>();
         public AI()
         {
 
         }
 
-        public AI(string dif)
+        public AI(string dif, bool dm)
         {
             difficulty = dif;
+            debugMode = dm;
         }
 
         public Coordinate chooseMove(Board oppB)
@@ -42,7 +40,7 @@ namespace BattleshipTest
             //Heat map
             else
             {
-                return hardMove();
+                return hardMove(oppB);
             }
         }
 
@@ -58,9 +56,31 @@ namespace BattleshipTest
             return null;
         }
 
-        Coordinate hardMove()
+        Coordinate hardMove(Board oppB)
         {
-            return null;
+                Coordinate holdingCoord = new Coordinate();
+                for (int x = 0; x < 10; x++)
+                {
+                    for (int y = 0; y < 10; y++)
+                    {
+                        if (debugMode == true)
+                        {
+                            Console.WriteLine("DEBUG INFO: heatmap[x,y]: " + oppB.upperScreen.heatmap[x, y].x + " " + oppB.upperScreen.heatmap[x, y].y + " " + oppB.upperScreen.heatmap[x, y].count);
+                            Console.WriteLine("DEBUG INFO: holdingCoord: " + holdingCoord.x + " " + holdingCoord.y + " " + holdingCoord.count);
+                        }
+                        if (oppB.upperScreen.heatmap[x,y].probability > holdingCoord.probability)
+                        {
+
+                            if (debugMode == true)
+                            {
+
+                                Console.WriteLine("Probability changed.  Old: " + holdingCoord.probability + "New " + oppB.upperScreen.heatmap[x, y].probability);
+                            }
+                            holdingCoord = oppB.upperScreen.heatmap[x, y];
+                        }
+                    }
+                }
+                return holdingCoord; 
         }
 
         Coordinate HuntShip()

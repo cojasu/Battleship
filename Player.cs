@@ -11,9 +11,9 @@ namespace BattleshipTest
     {
         public Board board;
 
-        public Player()
+        public Player(bool db)
         {
-            board = new Board();
+            board = new Board(db);
         }
         //Logic for players turn, return true if player has won.
         public void turn(Board oppBoard, bool debugMode)

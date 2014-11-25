@@ -11,16 +11,16 @@ namespace BattleshipTest
     {
         public AI ai;
         public Board board;
-        ComputerPlayer()
+        ComputerPlayer(bool dm)
         {
             ai = new AI();
-            board = new Board();
+            board = new Board(dm);
         }
 
-        public ComputerPlayer(string dif)
+        public ComputerPlayer(string dif, bool dm)
         {
-            ai = new AI(dif);
-            board = new Board();
+            ai = new AI(dif, dm);
+            board = new Board(dm);
         }
 
         public void takeShot(Coordinate coord){
@@ -39,7 +39,7 @@ namespace BattleshipTest
             }
         }
         //Logic for taking computers turn. returns true if computer has won.
-        public bool turn(Board oppb)
+        public bool turn(Board oppb, bool debug)
         {
             //Get coordinate for shot.
             Coordinate target = new Coordinate();

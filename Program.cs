@@ -15,12 +15,12 @@ namespace BattleshipTest
             Menu m = new Menu();
             Game myGame = new Game();
             Application.Run(myGame);
-            PlayerManager playerManager = new PlayerManager(m.difficulty);
-
+            PlayerManager playerManager = new PlayerManager(m.difficulty, m.debugMode);
             bool didSomeoneWin = false;
             //Main game loop
             while (didSomeoneWin == false)
             {
+                Console.WriteLine("Here");
                 didSomeoneWin = playerManager.update(m.humanGoesFirst, m.debugMode);
             }
             Console.WriteLine("Press enter to close...");

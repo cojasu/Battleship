@@ -14,10 +14,10 @@ namespace BattleshipTest.BoardData
         public UpperScreen upperScreen;
         public LowerScreen lowerScreen;
 
-        public Board()
+        public Board(bool dm)
         {
-            upperScreen = new UpperScreen();
-            lowerScreen = new LowerScreen();
+            upperScreen = new UpperScreen(dm);
+            lowerScreen = new LowerScreen(dm);
         }
     }
 }
