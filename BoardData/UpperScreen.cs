@@ -32,9 +32,16 @@ namespace BattleshipTest.BoardData
 
         public void printScreen()
         {
+            Console.Write("    ");
+            for (int i = 0; i < screen.GetLength(0); i++)
+            {
+                Console.Write(i + "   ");
+            }
+            Console.WriteLine("");
             for (int j = 0; j < screen.GetLength(1); j++)
             {
-                for (int i = 0; i < screen.GetLength(0); j++)
+                Console.Write(j + " ");
+                for (int i = 0; i < screen.GetLength(0); i++)
                 {
                     Console.Write("[" + screen[i, j].content + "] ");
                 }
@@ -43,8 +50,15 @@ namespace BattleshipTest.BoardData
         }
         public void printHitOrMiss()
         {
+            Console.Write("    ");
+            for (int i = 0; i < screen.GetLength(0); i++)
+            {
+                Console.Write(i + "   ");
+            }
+            Console.WriteLine("");
             for (int j = 0; j < screen.GetLength(1); j++)
             {
+                Console.Write(j + " ");
                 for (int i = 0; i < screen.GetLength(0); i++)
                 {
                     Console.Write("[" + hitOrMissScreen[i, j] + "] ");
@@ -71,13 +85,8 @@ namespace BattleshipTest.BoardData
         {
             getCounts(ls);
             printCounts();
-            resetCounts();
         }
 
-        void resetCounts()
-        {
-
-        }
         void getCounts(LowerScreen ls)
         {
             List<Coordinate> listOfCoordinatesFromSunkShips = new List<Coordinate>();

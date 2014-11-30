@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using BattleshipTest.BoardData;
 
+
 namespace BattleshipTest
 {
     public class AI
@@ -86,7 +87,24 @@ namespace BattleshipTest
                         }
                     }
                 }
-                return holdingCoord; 
+                List<Coordinate> tempCoords = new List<Coordinate>();
+                tempCoords.Add(holdingCoord);
+                for (int i = 0; i < 10; i++)
+                {
+                    for (int j = 0; j < 10; j++)
+                    {
+                        if (heatmap[i, j].count == holdingCoord.count)
+                        {
+                            if (!(heatmap[i, j].x == holdingCoord.x && heatmap[i, j].y == holdingCoord.y))
+                            {
+                                tempCoords.Add(heatmap[i, j]);
+                            }
+                        }
+                    }
+                }
+                Random rnd = new Random();
+                int r = rnd.Next(tempCoords.Count);
+                return tempCoords[r]; 
         }
 
         Coordinate HuntShip()

@@ -118,11 +118,18 @@ namespace BattleshipTest.BoardData
 
         public void print()
         {
+            Console.Write("    ");
             for (int i = 0; i < screen.GetLength(0); i++)
             {
-                for (int j = 0; j < screen.GetLength(1); j++)
+                Console.Write(i + "   ");
+            }
+            Console.WriteLine("");
+            for (int j = 0; j < screen.GetLength(1); j++)
+            {
+                Console.Write(j + " ");
+                for (int i = 0; i < screen.GetLength(0); i++)
                 {
-                    Console.Write("[" + screen[j,i].content + "] ");
+                    Console.Write("[" + screen[i,j].content + "] ");
                 }
                 Console.WriteLine("");
             }
@@ -145,17 +152,14 @@ namespace BattleshipTest.BoardData
 
         public List<Ship> getListofDeadShips()
         {
-            printShipData(true);
             List<Ship> tempList = new List<Ship>();
             Ships.ForEach(delegate(Ship ship)
             {
-                Console.WriteLine("On Ship : " + ship.type);
                 bool shipCheck = true;
                 foreach (KeyValuePair<Coordinate, bool> coord in ship.isHitDictionary)
                 {
                     if (coord.Value == false)
                     {
-                        Console.WriteLine("here");
                         shipCheck = false;
                         break;
                     }
@@ -165,11 +169,6 @@ namespace BattleshipTest.BoardData
                     tempList.Add(ship);
                 }
             });
-
-            foreach (Ship ship in tempList)
-            {
-                Console.WriteLine(ship.type);
-            }
             return tempList;
         }
     }

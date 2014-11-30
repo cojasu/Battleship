@@ -29,11 +29,13 @@ namespace BattleshipTest
                 target.content = oppb.lowerScreen.screen[target.x, target.y].content;
                 oppb.lowerScreen.screen[target.x, target.y].content = "H";
                 board.upperScreen.hitOrMissScreen[target.x, target.y] = "H";
+                Console.WriteLine("HIT");
             }
             else
             {
                 oppb.lowerScreen.screen[target.x, target.y].content = "M";
                 board.upperScreen.hitOrMissScreen[target.x, target.y] = "M";
+                Console.WriteLine("MISS");
             }
 
             Console.WriteLine("Computer took shot at X: " + target.x + " Y: " + target.y);
@@ -49,8 +51,6 @@ namespace BattleshipTest
 
         public bool isLegal(Coordinate target)
         {
-            Console.WriteLine("Target data : X: " + target.x + " Y: " + target.y + " Content: " + target.content);
-            Console.WriteLine("upperScreen data : Content : " + board.upperScreen.screen[target.x, target.y].content);
             if (board.upperScreen.screen[target.x, target.y].content != "H")
             {
                 if (board.upperScreen.screen[target.x, target.y].content != "M")
@@ -82,7 +82,7 @@ namespace BattleshipTest
             return didWin;
         }
         //Logic for taking computers turn. returns true if computer has won.
-        public bool turn(Board oppb, bool debug)
+        public void turn(Board oppb, bool debug)
         {
             //Get coordinate for shot.
             Coordinate target = new Coordinate();
@@ -92,9 +92,6 @@ namespace BattleshipTest
             
             //Take the Shot
             takeShot(target, oppb, debug);
-
-            //Check to see if won.
-            return false;
         }
     }
 }
