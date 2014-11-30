@@ -17,9 +17,9 @@ namespace BattleshipTest.BoardData
         public UpperScreen(bool dm)
         {
             debugMode = dm;
-            for (int i = 0; i < screen.GetLength(0); i++)
+            for (int j = 0; j < screen.GetLength(1); j++)
             {
-                for (int j = 0; j < screen.GetLength(1); j++)
+                for (int i = 0; i < screen.GetLength(0); i++)
                 {
                     screen[i, j] = new Coordinate(i, j);
                     hitOrMissScreen[i, j] = "#";
@@ -32,22 +32,22 @@ namespace BattleshipTest.BoardData
 
         public void printScreen()
         {
-            for (int i = 0; i < screen.GetLength(0); i++)
+            for (int j = 0; j < screen.GetLength(1); j++)
             {
-                for (int j = 0; j < screen.GetLength(1); j++)
+                for (int i = 0; i < screen.GetLength(0); j++)
                 {
-                    Console.Write("[" + screen[j, i].content + "] ");
+                    Console.Write("[" + screen[i, j].content + "] ");
                 }
                 Console.WriteLine("");
             }
         }
         public void printHitOrMiss()
         {
-            for (int i = 0; i < screen.GetLength(0); i++)
+            for (int j = 0; j < screen.GetLength(1); j++)
             {
-                for (int j = 0; j < screen.GetLength(1); j++)
+                for (int i = 0; i < screen.GetLength(0); i++)
                 {
-                    Console.Write("[" + hitOrMissScreen[j, i] + "] ");
+                    Console.Write("[" + hitOrMissScreen[i, j] + "] ");
                 }
                 Console.WriteLine("");
             }
@@ -56,9 +56,9 @@ namespace BattleshipTest.BoardData
         public Coordinate[,] getUpperScreenFromOpponent(LowerScreen screen)
         {
             UpperScreen tempScreen = new UpperScreen(debugMode);
-            for (int i = 0; i < tempScreen.screen.GetLength(0); i++)
+            for (int j = 0; j < tempScreen.screen.GetLength(1); j++)
             {
-                for (int j = 0; j < tempScreen.screen.GetLength(1); j++)
+                for (int i = 0; i < tempScreen.screen.GetLength(0); i++)
                 {
                     tempScreen.screen[i, j] = screen.screen[i, j];
                 }
@@ -89,20 +89,20 @@ namespace BattleshipTest.BoardData
                 }
             });
 
-            for (int i = 0; i < 10; i++)
+            for (int j = 0; j < 10; j++)
             {
-                for (int j = 0; j < 10; j++)
+                for (int i = 0; i < 10; i++)
                 {
                     heatmap[i, j].count = 0;
                 }
             }
-            for (int i = 0; i < 10; i++)
+            foreach (Ship ship in ls.Ships)
             {
-                for (int j = 0; j < 10; j++)
+                if (shipIsAlive(ship))
                 {
-                    foreach (Ship ship in ls.Ships)
+                    for (int j = 0; j < 10; j++)
                     {
-                        if (shipIsAlive(ship))
+                        for (int i = 0; i < 10; i++)
                         {
                             countShipFitHorizontal(ship, i, j, listOfCoordinatesFromSunkShips);
                             countShipFitVertical(ship, i, j, listOfCoordinatesFromSunkShips);
@@ -110,9 +110,9 @@ namespace BattleshipTest.BoardData
                     }
                 }
             }
-            for (int i = 0; i < 10; i++)
+            for (int j = 0; j < 10; j++)
             {
-                for (int j = 0; j < 10; j++)
+                for (int i = 0; i < 10; i++)
                 {
                     if (hitOrMissScreen[i, j] == "H")
                     {
@@ -138,100 +138,150 @@ namespace BattleshipTest.BoardData
             }
             return false;
         }
+
         void countShipFitVertical(Ship ship, int x, int y, List<Coordinate> list)
         {
             for (int i = 0; i < ship.length; i++)
             {
-                if (debugMode)
-                {
-                    Console.WriteLine("DEBUG INFO: On ShipVertical: " + ship.type + "X: " + x + "Y: " + y + "I: " + i);
-                }
                 if (y + i > 9)
                 {
                     return;
                 }
-                else if (hitOrMissScreen[x, y + i] == "M")
-                {
-                    break;
-                }
-                if (list.Contains(new Coordinate(x, y + i, "H")))
-                {
-                    if (debugMode)
-                    {
-                        Console.WriteLine("Coordinate is already sunk");
-                    }
-                }
-                else
-                {
-                    if (hitOrMissScreen[x, y + i] == "H")
-                    {
-                        if (y + i - 1 > -1)
-                        {
-                            heatmap[x, y + i - 1].count++;
-                        }
-                    }
-
-                    if (!(y - i < 1))
-                    {
-                        if (hitOrMissScreen[x, y - 1] == "H")
-                        {
-                            if (y + i + 1 < 10)
-                            {
-                                heatmap[x, y + i + 1].count++;
-                            }
-                        }
-                    }
-                }
-
             }
             for (int i = 0; i < ship.length; i++)
             {
-                if (y + i < 10)
+                foreach (Coordinate coord in list)
                 {
-                    heatmap[x, y + i].count++;
+                    Coordinate tempCoord = new Coordinate(x, y + i);
+                    if (tempCoord.x == coord.x && tempCoord.y == coord.y)
+                    {
+                        return;
+                    }
                 }
+            }
+            for (int i = 0; i < ship.length; i++)
+            {
+                if (hitOrMissScreen[x, y + i] == "M")
+                {
+                    return;
+                }
+            }
+            for (int i = 0; i < ship.length; i++)
+            {
+
+                if (hitOrMissScreen[x, y + i] == "H")
+                {
+                    if (y + i - 1 > -1)
+                    {
+                        if (y + i + 1 < 10)
+                        {
+                            if (hitOrMissScreen[x, y + i + 1] == "H")
+                            {
+                                heatmap[x, y + i - 1].count += 4;
+                            }
+                            else
+                            {
+                                heatmap[x, y + i - 1].count += 2;
+                            }
+                        }
+                        else
+                        {
+                            heatmap[x, y + i - 1].count += 2;
+                        }
+                    }
+                    if (y + i + 1 < 10)
+                    {
+                        if (y + i - 1 > -1)
+                        {
+                            if (hitOrMissScreen[x, y + i - 1] == "H")
+                            {
+                                heatmap[x, y + i + 1].count += 4;
+                            }
+                            else
+                            {
+                                heatmap[x, y + i + 1].count += 2;
+                            }
+                        }
+                        else
+                        {
+                            heatmap[x, y + i + 1].count += 3;
+                        }
+                    }
+                }
+            }
+
+            for (int i = 0; i < ship.length; i++)
+            {
+                heatmap[x, y + i].count++;
             }
         }
 
         void countShipFitHorizontal(Ship ship, int x, int y, List<Coordinate> list)
         {
-            for (int i = 0; i < ship.length; i++)
+            for (int h = 0; h < ship.length; h++)
             {
-                if (debugMode)
-                {
-                    Console.WriteLine("DEBUG INFO: On ShipVertical: " + ship.type + "X: " + x + "Y: " + y + "I: " + i);
-                }
-                if (x + i > 9)
+                if (x + h > 9)
                 {
                     return;
                 }
-                else if (hitOrMissScreen[x + i, y] == "M")
+            }
+            for (int i = 0; i < ship.length; i++)
+            {
+                foreach (Coordinate coord in list)
                 {
-                    break;
-                }
-                if (list.Contains(new Coordinate(x + i, y, "H")))
-                {
-                    if (debugMode)
+                    Coordinate tempCoord = new Coordinate(x + i, y);
+                    if (tempCoord.x == coord.x && tempCoord.y == coord.y)
                     {
-                        Console.WriteLine("Coordinate is already sunk");
+                        return;
                     }
                 }
-                else
+            }
+            for (int j = 0; j < ship.length; j++)
+            {
+                if (hitOrMissScreen[x + j, y] == "M")
+                {
+                    return;
+                }
+            }
+            for (int i = 0; i < ship.length; i++)
+            {
                 {
                     if (hitOrMissScreen[x + i, y] == "H")
                     {
                         if (x + i - 1 > -1)
                         {
-                            heatmap[x + i - 1, y].count++;
-                        }
-                    }
-                    if (!(x - i < 1))
-                    {
-                        if (hitOrMissScreen[x - 1, y] == "H")
-                        {
                             if (x + i + 1 < 10)
                             {
-                                heatmap[x + i + 1, y].count++;
+                                if (hitOrMissScreen[x + i + 1, y] == "H")
+                                {
+                                    heatmap[x + i - 1, y].count += 4;
+                                }
+                                else
+                                {
+                                    heatmap[x + i - 1, y].count += 2;
+                                }
+                            }
+                            else
+                            {
+                                heatmap[x + i - 1, y].count += 2;
+                            }
+                        }
+                        if (x + i + 1 < 10)
+                        {
+                            if (x + i - 1 > -1)
+                            {
+                                if (hitOrMissScreen[x + i - 1, y] == "H")
+                                {
+                                    heatmap[x + i + 1, y].count += 4;
+                                }
+                                else
+                                {
+                                    heatmap[x + i + 1, y].count += 2;
+                                }
+                            }
+                            else
+                            {
+                                heatmap[x + i + 1, y].count += 2;
                             }
                         }
                     }
@@ -239,10 +289,7 @@ namespace BattleshipTest.BoardData
             }
             for (int i = 0; i < ship.length; i++)
             {
-                if (x + i < 10)
-                {
-                    heatmap[x + i, y].count++;
-                }
+                heatmap[x + i, y].count++;
             }
         }
         void printCounts()

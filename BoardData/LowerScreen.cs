@@ -145,14 +145,17 @@ namespace BattleshipTest.BoardData
 
         public List<Ship> getListofDeadShips()
         {
+            printShipData(true);
             List<Ship> tempList = new List<Ship>();
             Ships.ForEach(delegate(Ship ship)
             {
+                Console.WriteLine("On Ship : " + ship.type);
                 bool shipCheck = true;
                 foreach (KeyValuePair<Coordinate, bool> coord in ship.isHitDictionary)
                 {
                     if (coord.Value == false)
                     {
+                        Console.WriteLine("here");
                         shipCheck = false;
                         break;
                     }

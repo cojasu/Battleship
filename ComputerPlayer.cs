@@ -37,6 +37,14 @@ namespace BattleshipTest
             }
 
             Console.WriteLine("Computer took shot at X: " + target.x + " Y: " + target.y);
+
+            oppb.lowerScreen.Ships.ForEach(delegate(Ship ship)
+            {
+                if (ship.isHitDictionary.ContainsKey(target))
+                {
+                    ship.isHitDictionary[target] = true;
+                }
+            });
         }
 
         public bool isLegal(Coordinate target)

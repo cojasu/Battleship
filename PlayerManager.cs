@@ -36,7 +36,7 @@ namespace BattleshipTest
             if (isHumanFirst)
             {
                 player.turn(computerPlayer.board, debugMode);
-                if (player.CheckWin(player.board.lowerScreen.Ships))
+                if (player.CheckWin(computerPlayer.board.lowerScreen.Ships))
                 {
                     Console.WriteLine("Congratulations You Win");
                     return true;
@@ -52,8 +52,21 @@ namespace BattleshipTest
             }
             else
             {
+                computerPlayer.board.upperScreen.listofOpponentsSunkShips = player.board.lowerScreen.getListofDeadShips();
+                computerPlayer.board.upperScreen.updateHeatMap(player.board.lowerScreen);
                 computerPlayer.turn(player.board, debugMode);
+                computerPlayer.turn(player.board, debugMode);
+                if (computerPlayer.CheckWin(player.board.lowerScreen.Ships))
+                {
+                    Console.WriteLine("The Computer wins");
+                    return true;
+                }
                 player.turn(computerPlayer.board, debugMode);
+                if (player.CheckWin(computerPlayer.board.lowerScreen.Ships))
+                {
+                    Console.WriteLine("Congratulations You Win");
+                    return true;
+                }
             }
             return false;
         }
