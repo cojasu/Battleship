@@ -15,6 +15,7 @@ namespace BattleshipTest
         public string difficulty;
         public bool humanGoesFirst;
         public bool debugMode;
+        public bool demoMode;
         public userOps()
         {
             InitializeComponent();
@@ -49,6 +50,15 @@ namespace BattleshipTest
                 debugMode = true;
             else
                 debugMode = false;
+
+            if (checkBoxDemoMode.Checked)
+            {
+                demoMode = true;
+            }
+            else
+            {
+                demoMode = false;
+            }
             
         }
 

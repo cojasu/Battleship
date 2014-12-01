@@ -29,16 +29,16 @@ namespace BattleshipTest
                 target.content = oppb.lowerScreen.screen[target.x, target.y].content;
                 oppb.lowerScreen.screen[target.x, target.y].content = "H";
                 board.upperScreen.hitOrMissScreen[target.x, target.y] = "H";
-                Console.WriteLine("HIT");
+               // Console.WriteLine("HIT");
             }
             else
             {
                 oppb.lowerScreen.screen[target.x, target.y].content = "M";
                 board.upperScreen.hitOrMissScreen[target.x, target.y] = "M";
-                Console.WriteLine("MISS");
+               // Console.WriteLine("MISS");
             }
 
-            Console.WriteLine("Computer took shot at X: " + target.x + " Y: " + target.y);
+            //Console.WriteLine("Computer took shot at X: " + target.x + " Y: " + target.y);
 
             oppb.lowerScreen.Ships.ForEach(delegate(Ship ship)
             {

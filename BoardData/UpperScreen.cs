@@ -84,7 +84,7 @@ namespace BattleshipTest.BoardData
         public void updateHeatMap(LowerScreen ls)
         {
             getCounts(ls);
-            printCounts();
+            //printCounts();
         }
 
         void getCounts(LowerScreen ls)
@@ -186,16 +186,16 @@ namespace BattleshipTest.BoardData
                         {
                             if (hitOrMissScreen[x, y + i + 1] == "H")
                             {
-                                heatmap[x, y + i - 1].count += 4;
+                                heatmap[x, y + i - 1].count += 6;
                             }
                             else
                             {
-                                heatmap[x, y + i - 1].count += 2;
+                                heatmap[x, y + i - 1].count += 3;
                             }
                         }
                         else
                         {
-                            heatmap[x, y + i - 1].count += 2;
+                            heatmap[x, y + i - 1].count += 3;
                         }
                     }
                     if (y + i + 1 < 10)
@@ -204,11 +204,11 @@ namespace BattleshipTest.BoardData
                         {
                             if (hitOrMissScreen[x, y + i - 1] == "H")
                             {
-                                heatmap[x, y + i + 1].count += 4;
+                                heatmap[x, y + i + 1].count += 6;
                             }
                             else
                             {
-                                heatmap[x, y + i + 1].count += 2;
+                                heatmap[x, y + i + 1].count += 3;
                             }
                         }
                         else
@@ -263,16 +263,16 @@ namespace BattleshipTest.BoardData
                             {
                                 if (hitOrMissScreen[x + i + 1, y] == "H")
                                 {
-                                    heatmap[x + i - 1, y].count += 4;
+                                    heatmap[x + i - 1, y].count += 6;
                                 }
                                 else
                                 {
-                                    heatmap[x + i - 1, y].count += 2;
+                                    heatmap[x + i - 1, y].count += 3;
                                 }
                             }
                             else
                             {
-                                heatmap[x + i - 1, y].count += 2;
+                                heatmap[x + i - 1, y].count += 3;
                             }
                         }
                         if (x + i + 1 < 10)
@@ -281,16 +281,16 @@ namespace BattleshipTest.BoardData
                             {
                                 if (hitOrMissScreen[x + i - 1, y] == "H")
                                 {
-                                    heatmap[x + i + 1, y].count += 4;
+                                    heatmap[x + i + 1, y].count += 6;
                                 }
                                 else
                                 {
-                                    heatmap[x + i + 1, y].count += 2;
+                                    heatmap[x + i + 1, y].count += 3;
                                 }
                             }
                             else
                             {
-                                heatmap[x + i + 1, y].count += 2;
+                                heatmap[x + i + 1, y].count += 3;
                             }
                         }
                     }

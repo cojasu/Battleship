@@ -14,6 +14,7 @@ namespace BattleshipTest
         public string difficulty;
         public bool humanGoesFirst;
         public bool debugMode;
+        public bool demoMode;
         public Menu()
         {
             Application.EnableVisualStyles();
@@ -23,6 +24,7 @@ namespace BattleshipTest
             difficulty = myMenu.difficulty;
             humanGoesFirst = myMenu.humanGoesFirst;
             debugMode = myMenu.debugMode;
+            demoMode = myMenu.demoMode;
         }
 
       
