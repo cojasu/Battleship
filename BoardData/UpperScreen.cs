@@ -84,7 +84,7 @@ namespace BattleshipTest.BoardData
         public void updateHeatMap(LowerScreen ls)
         {
             getCounts(ls);
-            //printCounts();
+            printCounts();
         }
 
         void getCounts(LowerScreen ls)

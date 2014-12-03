@@ -18,6 +18,11 @@ namespace BattleshipTest
         //Logic for players turn, return true if player has won.
         public void turn(Board oppBoard, bool debugMode)
         {
+            Console.WriteLine("List of Opponent's Sunk Ships: ");
+            foreach (Ship ship in oppBoard.lowerScreen.getListofDeadShips())
+            {
+                Console.WriteLine(ship.type);
+            }
             Coordinate target;
             printScreens(oppBoard, debugMode);
             target = chooseMove();
@@ -32,11 +37,13 @@ namespace BattleshipTest
                 target.content = oppB.lowerScreen.screen[target.x, target.y].content;
                 oppB.lowerScreen.screen[target.x, target.y].content = "H";
                 board.upperScreen.hitOrMissScreen[target.x, target.y] = "H";
+                Console.WriteLine("Player made a HIT");
             }
             else
             {
                 oppB.lowerScreen.screen[target.x, target.y].content = "M";
                 board.upperScreen.hitOrMissScreen[target.x, target.y] = "M";
+                Console.WriteLine("Player made a MISS");
             }
 
             //Update opponent's ShipData

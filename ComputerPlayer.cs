@@ -29,16 +29,16 @@ namespace BattleshipTest
                 target.content = oppb.lowerScreen.screen[target.x, target.y].content;
                 oppb.lowerScreen.screen[target.x, target.y].content = "H";
                 board.upperScreen.hitOrMissScreen[target.x, target.y] = "H";
-               // Console.WriteLine("HIT");
+                Console.WriteLine("Computer made a HIT");
             }
             else
             {
                 oppb.lowerScreen.screen[target.x, target.y].content = "M";
                 board.upperScreen.hitOrMissScreen[target.x, target.y] = "M";
-               // Console.WriteLine("MISS");
+                Console.WriteLine("Computer made a MISS");
             }
 
-            //Console.WriteLine("Computer took shot at X: " + target.x + " Y: " + target.y);
+            Console.WriteLine("Computer took shot at X: " + target.x + " Y: " + target.y);
 
             oppb.lowerScreen.Ships.ForEach(delegate(Ship ship)
             {
@@ -84,6 +84,11 @@ namespace BattleshipTest
         //Logic for taking computers turn. returns true if computer has won.
         public void turn(Board oppb, bool debug)
         {
+            Console.WriteLine("List of Player's Sunk Ships: ");
+            foreach (Ship ship in oppb.lowerScreen.getListofDeadShips())
+            {
+                Console.WriteLine(ship.type);
+            }
             //Get coordinate for shot.
             Coordinate target = new Coordinate();
             do{
